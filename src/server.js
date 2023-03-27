@@ -4,6 +4,7 @@ import http from "http";
 import { Server } from "socket.io";
 import { router } from "./router/router";
 import { connectDB } from "./config/db";
+import { Bot } from "./model/bot";
 
 const app = express();
 const PORT = 8000;
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use("/api/v1/bot", router);
 connectDB();
 
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -24,9 +25,25 @@ const io = new Server(server, {
 io.on("connection", (Socket) => {
   console.log("connected");
 
-  Socket.on("send_message", (data) => {
-    Socket.emit("received_message", "hello");
-    console.log(data.message);
+  Socket.on("send_message", async (data) => {
+    let result = [];
+
+    const words = data.message.split(" ");
+    console.log(words);
+
+    for (let i = 0; i < words.length; i++) {
+      let answer = await Bot.find({
+        keywords: { $regex: words[i], $options: "i" },
+      });
+      result.push(...answer);
+      if (words.length - 1 == i) {
+        const unique = result.filter(
+          (obj, index, self) => index === self.findIndex((t) => t.id === obj.id)
+        );
+        console.log(unique, "unique");
+        Socket.emit("received_message", unique[0].answer);
+      }
+    }
   });
 
   Socket.on("disconnect", () => {
