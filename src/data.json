@@ -1,10 +1,57 @@
 [
   {
-    "keywords": ["Node.js", "better", "frameworks", "other"],
-    "answer": "It runs on a chrome v8 engine which is written in c++ and is highly performant with constant improvement.Also since we will use Javascript in both the frontend and backend the development will be much faster.  "
+    "keywords": ["Node.js", "topics", "learn"],
+    "answer": "<h3>HTTP module,File system, URL module,NPM,Upload files,Events,Node.js Email</h3>"
   },
   {
     "keywords": ["Node.js", "frameworks", "other"],
     "answer": "It runs on a chrome v8 engine which is written in c++ and is highly performant with constant improvement.Also since we will use Javascript in both the frontend and backend the development will be much faster.  "
+  },
+  {
+    "keywords": [
+      "hai",
+      "hello",
+      "hi",
+      "good morning",
+      "good afternoon",
+      "good evening"
+    ],
+    "answer": "Hello!! Ask me anything about nodejs"
+  },
+  {
+    "keywords": ["node.js", "fork"],
+    "answer": "A fork in general is used to spawn child processes. In node it is used to create a new instance of v8 engine to run multiple workers to execute the code."
+  },
+  {
+    "keywords": ["node.js", "single-threaded"],
+    "answer": "Node.js was created explicitly as an experiment in async processing. This was to try a new theory of doing async processing on a single thread over the existing thread-based implementation of scaling via different frameworks."
+  },
+  {
+    "keywords": ["create", "simple", "server"],
+    "answer": "var http = require('http');</br>http.createServer(function (request, response) {</br>response.writeHead(200, {'Content-Type': 'text/plain'});</br> response.end('Hello World\n');</br>}).listen(3000)"
+  },
+  {
+    "keywords": ["types", "api", "functions"],
+    "answer": "There are two types of API functions:</br>Asynchronous, non-blocking functions - mostly I/O operations which can be fork out of the main loop.</br>Synchronous, blocking functions - mostly operations that influence the process running in the main loop."
+  },
+  {
+    "keywords": ["nodejs"],
+    "answer": "Node.js is a virtual machine that uses JavaScript as its scripting language and runs Chrome’s V8 JavaScript engine. Basically, Node.js </br>is based on an event-driven architecture where I/O runs asynchronously making it lightweight and efficient. It is being used in </br>developing desktop applications as well with a popular framework called electron as it provides API to access OS-level features such</br>as file system, network, etc."
+  },
+  {
+    "keywords": ["middleware"],
+    "answer": "Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing,</br>authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and</br>you can write your own middleware for a specific use case."
+  },
+  {
+    "keywords": ["Event Emitter"],
+    "answer": "EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by </br>attaching named events that are emitted by the object using an eventEmitter.on() function."
+  },
+  {
+    "keywords": ["uses", "nodejs"],
+    "answer": "It is generally fast </br>It rarely blocks</br>It offers a unified programming language and data type </br>Everything is asynchronous </br>It yields great concurrency"
+  },
+  {
+    "keywords": ["callback", "nodejs"],
+    "answer": "A callback function is called after a given task. It allows other code to be run in the meantime</br>and prevents any blocking.Being an asynchronous platform, Node.js heavily relies on callback.</br>All APIs of Node are written to support callbacks."
   }
 ]

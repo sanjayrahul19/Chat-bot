@@ -16,7 +16,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "server": "nodemon --exec babel-node src/server.js",
+    "server": "nodemon --exec babel-node src/index.js",
     "start": "nodemon --exec babel-node lib/server.js",
     "build": "babel src -d lib",
     "dev": "babel src -d lib && node lib/server.js"

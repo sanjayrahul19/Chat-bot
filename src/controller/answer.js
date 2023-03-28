@@ -13,10 +13,9 @@ export const answer = async (req, res) => {
       let answer = await Bot.find({
         keywords: { $regex: words[i], $options: "i" },
       });
+      console.log(answer, "answer");
 
       result.push(...answer); //splits objects in an array and push in new array
-
-      // console.log(answer, "answer");
 
       if (words.length - 1 === i) {
         const unique = result.filter(
@@ -24,51 +23,38 @@ export const answer = async (req, res) => {
         );
         console.log(result, "result");
         console.log(unique, "unique");
+
+        const count = {};
+
+        const ans = result.forEach((obj) => {
+          const id = obj.id;
+          if (unique.some((item) => item.id === id)) {
+            count[id] = (count[id] || 0) + 1;
+            console.log(count[id], "count");
+          }
+        });
+        console.log(count);
+
+        let maxCount = 0;
+        let maxId;
+
+        for (const id in count) {
+          if (count[id] > maxCount) {
+            maxCount = count[id];
+            maxId = id;
+          }
+        }
+        console.log(maxId, "id");
+
+        const object = await Bot.findOne({ _id: maxId });
+        console.log(object, "obj");
         return responseHandler(
           res,
           200,
           "Answer sent successfully",
           true,
-          unique[0]
+          object
         );
-
-        // const existingIds = unique
-        //   .filter((obj) => {
-        //     const matchingIds = result.filter((item) => item.id === obj.id);
-        //     // console.log(matchingIds, "len");
-        //     return matchingIds.length;
-        //   })
-        // .map((obj) => obj);
-        // console.log(existingIds, "existing",123);
-        // return responseHandler(
-        //   res,
-        //   200,
-        //   "Answer sent successfully",
-        //   true,
-        //   existingIds[0]
-        // );
-
-        // const count = {};
-
-        // const ans = result.forEach((obj) => {
-        //   const id = obj.id;
-        //   if (unique.some((item) => item.id === id)) {
-        //     count[id] = (count[id] || 0) + 1;
-        //     console.log(count[id],"count")
-        //   }
-        // });
-        // console.log(count);
-
-        // for (let i = 0; i < result.length; i++) {
-        //   for (let j = 0; j < unique.length; j++) {
-        //     if (result[i].id === unique[j].id) {
-        //       count++;
-        //       if (result.length - 1 === count > 0) {
-        //         finalResult.push(result[i]);
-        //       }
-        //     }
-        //   }
-        // }
       }
     }
   } catch (error) {

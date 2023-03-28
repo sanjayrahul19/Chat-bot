@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Bot</title>
+    <style>
+      #wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 50px;
+      }
+      #input {
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid black;
+        margin-right: 30px;
+      }
+      #button {
+        padding: 10px;
+        font-size: 16px;
+      }
+      #button:hover {
+        cursor: pointer;
+      }
+      #message {
+        margin-top: 80px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <form id="form" autocomplete="off">
+        <input
+          name="input"
+          type="text"
+          id="input"
+          placeholder="How can i help you?"
+        />
+      </form>
+      <button id="button">Send</button>
+    </div>
+    <p id="message"></p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      let form = document.getElementById("form");
+      let input = document.getElementById("input");
+      let button = document.getElementById("button");
+
+      button.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit("send_message", input.value);
+          input.value = "";
+        }
+      });
+      socket.on("received_message", function (msg) {
+        document.getElementById("message").innerHTML = msg;
+        console.log("hi", msg);
+      });
+    </script>
+  </body>
+</html>
